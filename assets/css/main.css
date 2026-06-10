@@ -8671,6 +8671,7 @@ input, select, textarea {
 				box-shadow: none !important;
 			}
 
+/* MODIFICATIONS CJWC - 06/2026 */			
 #first ul {
     text-align: left;
 }
@@ -8684,4 +8685,20 @@ ul.actions {
     flex-wrap: wrap;
     justify-content: left; /* or flex-start */
     gap: 0.2rem;
+}
+
+#fieldmap {
+    width: 100%;
+    height: 500px;
+    margin-top: 2rem;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.leaflet-popup-content {
+    text-align: left;
+}
+
+.leaflet-container {
+    font-family: inherit;
 }

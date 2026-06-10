@@ -9,8 +9,18 @@
 		<title>Chris Carchedi</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+		integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+		crossorigin=""/>
+		<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+		integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+		crossorigin=""></script>
+		<!-- <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" /> -->
+		<!-- <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script> -->
+		<!-- <script src="leaflet.worldwrap.js"></script> -->
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+
 	</head>
 	<body class="is-preload">
 
@@ -32,7 +42,10 @@
 								<li><a href="https://orcid.org/0000-0001-7334-3264" class="icon brands style2 fa-orcid"><span class="label">ORCID</span></a></li>ORCID&nbsp;&nbsp;&nbsp;&nbsp;
 								<!-- <br /> -->
 								<!-- <li><a href="https://twitter.com/DrRockDoctor" class="icon brands style2 fa-twitter"><span class="label">Twitter</span></a></li>@DrRockDoctor -->
-								<li><a href="files/carchedi_cv_2026_01.pdf" class="icon solid style2 fa-file"><span class="label">CV</span></a></li>CV
+								<br />
+
+								<li><a href="files/carchedi_cv_2026_01.pdf" class="icon solid style2 fa-file"><span class="label">CV</span></a></li>CV&nbsp;&nbsp;&nbsp;&nbsp;
+								<li><a href="https://bsky.app/profile/drrockdoctor.bsky.social" class="icon solid style2 fa-jedi"><span class="label">CV</span></a></li>@DrRockDoctor
 								<br />
 								<!-- <br /> -->
 							</ul>
@@ -54,7 +67,7 @@
 					<section class="spotlight style1 orient-right content-align-left image-position-center onscroll-image-fade-in" id="first">
 						<div class="content">
 							<h2>About Me</h2>
-							<p>I am an Assistant Professor in the <a href="https://www.ccny.cuny.edu/eas">Department of Earth and Atmospheric Sciences</a>  at the City College of New York. As a structural and tectonic seismologist, I use seismic observations from earthquakes and ambient seismic noise to better understand Earth system processes across a wide range of scales.</p>
+							<p>I am an Assistant Professor in the <a href="https://www.ccny.cuny.edu/eas">Department of Earth and Atmospheric Sciences</a>  at the City College of New York. As a structural and tectonic seismologist, I use seismic observations from earthquakes and ambient seismic noise to better understand Earth system processes across spatial scales.</p>
 							<p>My work focuses on active plate boundaries, where I study how crust and mantle structures evolve through tectonic processes and how these structures influence deformation across scales. I am also interested in environmental and ambient-noise seismology, with a focus on how interactions between the atmosphere, oceans, and solid Earth generate seismic signals that can be used to probe subsurface structure. Current research themes in my group include mantle dynamics, seismic anisotropy, and the coupling between tectonic and surface processes.</p>
 							<p>I am currently looking for motivated students to join my research group. Please reach out to share your interests and to find out more about research opportunities and life at CCNY.</p>
 							<p>Science is an active process and I enjoy engaging in all aspects of research—from data collection in the field to science communication and outreach beyond the classroom.</p>
@@ -77,22 +90,22 @@
 										<h3>Education</h3>
 										<ul>
 											<li style="list-style: none;">
-												<strong>PhD in Seismology (2023)</strong><br>
+												<strong>PhD, Seismology (2023)</strong><br>
 												<img src="images/logoCUcrowngray.png" class="edulogo">
 												Columbia University
 											</li>
 											<li style="list-style: none;">
-												<strong>MPhil in Seismology (2021)</strong><br>
+												<strong>MPhil, Seismology (2021)</strong><br>
 												<img src="images/logoCUcrowngray.png" class="edulogo">
 												Columbia University
 											</li>
 											<li style="list-style: none;">
-												<strong>MA in Seismology (2019)</strong><br>
+												<strong>MA, Seismology (2019)</strong><br>
 												<img src="images/logoCUcrowngray.png" class="edulogo">
 												Columbia University
 											</li>
 											<li style="list-style: none; align-items: center;">
-												<strong>ScB in Geology-Physics/Math (2017)</strong><br>
+												<strong>ScB, Geology-Physics/Math (2017)</strong><br>
 												<img src="images/brown_logo.png" class="edulogo">
 												Brown University
 											</li>
@@ -129,6 +142,8 @@
 											<li><a href="#second" class="button fit smooth-scroll">Great Lakes (Coming Soon)</a></li>
 											<li><a href="/SEGMENT-lake-noise.html" class="button fit smooth-scroll-middle">Lake Malawi</a></li>
 										</ul>
+										<h2>Field Sites</h2>
+										<div id="fieldmap"></div>
 										<!-- <br />
 										<br />
 										<h3>Bangladesh-India-Myanmar Array (BIMA) Experiment</h3>
@@ -166,9 +181,9 @@
 					<section class="spotlight style1 orient-left content-align-left image-position-center onscroll-image-fade-in color11" id="fourth">
 						<div class="content">
 							<h2>Teaching & Outreach</h2>
-							<p>Science communication continues to be an essential element of my work, both within the classroom and beyond. During my graduate studies at the Lamont-Doherty Earth Observatory, I contribute to a wide range of events and programs, including the <a href="https://seismicsoundlab.github.io/">Seismic Sound Lab</a>, <a href="https://womeninscienceatcolumbia.wordpress.com/girls-science-day/">Girls' Science Day</a>, and <a href="https://openhouse.ldeo.columbia.edu/">Open House</a>. During the pandemic of 2020, I also began visiting elementary and middle-school classrooms virtually to engage budding earth scientists and introduce them to the Earth's interior.</p>
+							<p>Science communication continues to be an essential element of my work, both within the classroom and beyond. During my graduate studies at the Lamont-Doherty Earth Observatory, I contribute to a wide range of events and programs, including the <a href="https://seismicsoundlab.github.io/">Seismic Sound Lab</a>, <a href="https://womeninscienceatcolumbia.wordpress.com/girls-science-day/">Girls' Science Day</a>, and <a href="https://openhouse.ldeo.columbia.edu/">Open House</a>. During the pandemic of 2020, I also began visiting elementary and middle-school classrooms virtually to engage budding earth scientists and introduce them to the Earth's interior. While in DC, I organized and performed in interactive panels at the annual AwesomeCon pop-culture convention to bring cutting-edge science to new audiences in creative formats.</p>
 							<!-- <br /> -->
-							<p>At Columbia University, I engaged with the Center of Teaching and Learning's Teaching Development Program to hone my abilities and consciously incorporate active objective-focused learning into my lessons. This training aided in my years as a lead teaching assistant for a lab-oriented introductory course on geological structures and processes. </p>
+							<p>At Columbia University, I engaged with the Center of Teaching and Learning's Teaching Development Program to hone my abilities and consciously incorporate active objective-focused learning into my lessons. This training aided in my years as a lead teaching assistant for a lab-oriented introductory course on geological structures and processes. Further efforts in weekly discussion groups during my postdoc at Carnegie Science prepared me to serve as an inclusive mentor to the next generation of scientists from many backgrounds.</p>
 							<!-- <ul class="actions stacked">
 								<li><a href="#" class="button">Learn More</a></li>
 							</ul> -->
@@ -178,7 +193,7 @@
 						</div>
 					</section>
 				<!-- FivePointFive/Publications -->
-					<section class="wrapper style1 align-left onscroll-image-fade-in" id="Fifth">
+					<section class="wrapper style1 align-left onscroll-image-fade-in" id="fifth">
 							<div class="inner">
 								<h2>Featured Publications</h2>
 								<div class="content">
@@ -482,6 +497,141 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script>
+
+				document.addEventListener("DOMContentLoaded", function () {
+				
+					var map = L.map('fieldmap',{
+						// worldWrap: true,
+						worldCopyJump: true,
+						minZoom: 1,
+						maxZoom: 5.0,
+						// zoomSnap: 0.25
+					})//.setView([10,20],2);
+
+					// map.fitBounds(wrap([12,45],[24,82]))
+					map.fitWorld()
+					// map.setview([0,40],2);
+
+					L.tileLayer(
+						'https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+							attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+						}
+					).addTo(map);
+
+					var fieldSitesGroup = L.featureGroup().addTo(map)
+					var plateBoundariesGroup = L.featureGroup().addTo(map)
+
+					// // Add in plate boundaries GeoJSON
+					// function shiftGeometryCoords(coords, shift) {
+					// 	if (typeof coords[0] === "number") {
+					// 		return [coords[0] + shift, coords[1]];
+					// 	}
+					// 	return coords.map(c => shiftGeometryCoords(c, shift));
+					// }
+					// function makeWrappedGeoJSON(data) {
+					// 	const shifts = [0, 360, -360]; //base,east,west copies
+					// 	let features = [];
+					// 	data.features.forEach(feature => {
+					// 		shifts.forEach(shift => {
+					// 			const newFeature = JSON.parse(JSON.stringify(feature));
+
+					// 			newFeature.geometry.coordinates = shiftGeometryCoords(feature.geometry.coordinates, shift);
+					// 			features.push(newFeature)
+					// 		});
+					// 	});
+
+					// 	return {
+					// 		type: "FeatureCollection",
+					// 		features: features
+					// 	};
+					// }
+					// fetch('files/GeoJSON/PB2002_boundaries.json')
+					// 	.then(response => response.json())
+					// 	.then(data => {
+					// 		const wrappedData = makeWrappedGeoJSON(data);
+					// 		const geoJsonLayer = L.geoJSON(wrappedData, {
+					// 		// var geoJsonLayer = L.geoJSON(data, {
+					// 			style: {
+					// 				color: '#ff6600',
+					// 				weight: 2,
+					// 				opacity: 0.8
+					// 			}
+					// 		});
+					// 		plateBoundariesGroup.addLayer(geoJsonLayer);
+					// 	})
+					// 	// .catch(error => console.error('Error loading plate boundaries:', error));
+
+					// L.control.scale().addTo(map);
+
+					fetch('files/GeoJSON/PB2002_boundaries_wrapped.json')
+						.then(response => response.json())
+						.then(data => {
+							var geoJsonLayer = L.geoJSON(data, {
+								style: {
+									color: '#ff6600',
+									weight: 2,
+									opacity: 0.8
+								}
+							});
+							plateBoundariesGroup.addLayer(geoJsonLayer);
+						})
+						// .catch(error => console.error('Error loading plate boundaries:', error));
+
+					L.control.scale().addTo(map);
+				
+					const sites = [
+				
+						{
+							name: "Bangladesh–Myanmar",
+							lat: 22.5,
+							lon: 92.0,
+							desc: "BIMA seismic deployment investigating Indo-Burman subduction."
+						},
+				
+						{
+							name: "Lake Malawi",
+							lat: -11.8,
+							lon: 34.4,
+							desc: "Lake-bottom seismology and microseism generation."
+						},
+				
+						{
+							name: "Northern Andes",
+							lat: 5.5,
+							lon: -75.0,
+							desc: "Seismic anisotropy and mantle flow around the Caldas Tear."
+						},
+				
+						{
+							name: "Great Lakes",
+							lat: 45.0,
+							lon: -84.0,
+							desc: "Environmental seismology and ice-cover monitoring."
+						}
+				
+					];
+				
+					sites.forEach(site => {
+				
+						L.marker([site.lat, site.lon])
+							.bindPopup(
+								`<h3>${site.name}</h3>
+								 <p>${site.desc}</p>`
+							)
+							.addTo(fieldSitesGroup);
+				
+					});
+					
+					// const overlays = {
+					// 	"Field Sites": fieldSitesGroup,
+					// 	"Plate Boundaries": plateBoundariesGroup
+					// 	// "Plate Boundaries":data
+					// };
+					// L.control.layers(null,overlays).addTo(map);
+				});
+				
+				</script>
 
 	</body>
 </html>
