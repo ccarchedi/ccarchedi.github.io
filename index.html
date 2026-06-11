@@ -142,7 +142,7 @@
 											<li><a href="#second" class="button fit smooth-scroll">Great Lakes (Coming Soon)</a></li>
 											<li><a href="/SEGMENT-lake-noise.html" class="button fit smooth-scroll-middle">Lake Malawi</a></li>
 										</ul>
-										<h2>Field Sites</h2>
+										<h2>Study Areas & Field Deployments</h2>
 										<div id="fieldmap"></div>
 										<!-- <br />
 										<br />
@@ -501,68 +501,63 @@
 
 				document.addEventListener("DOMContentLoaded", function () {
 				
+					var southWest = L.latLng(-89.05, -Infinity); 
+					var northEast = L.latLng(89.05, Infinity);   
+					var worldBounds = L.latLngBounds(southWest, northEast);
+
 					var map = L.map('fieldmap',{
 						// worldWrap: true,
 						worldCopyJump: true,
-						minZoom: 1,
-						maxZoom: 5.0,
-						// zoomSnap: 0.25
+						minZoom: 1.75,
+						maxZoom: 6.0,
+						zoomSnap: 0.5,
+						maxBounds:worldBounds,
+						maxBoundsViscosity: 1.0
 					})//.setView([10,20],2);
 
 					// map.fitBounds(wrap([12,45],[24,82]))
 					map.fitWorld()
 					// map.setview([0,40],2);
 
-					L.tileLayer(
+					// OpenStreetMap - open source
+					const osm = L.tileLayer(
 						'https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 							attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 						}
+					// ).addTo(map);
+					);
+					
+					// Geographic Map - retired ESRI 2026
+					// const geo = L.tileLayer(
+					// 	'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+					// 		attribution: 'Powered by <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+					// 	}
+					// // ).addTo(map);
+					// );
+					
+					// Topo/Physical Map - retired ESRI 2026
+					// const physical = L.tileLayer(
+					// 	'https://server.arcgisonline.com/ArcGIS/rest/services/World_Physical_Map/MapServer/tile/{z}/{y}/{x}', {
+					// 		attribution: 'Powered by <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+					// 	}
+					// // ).addTo(map);
+					// );
+					
+					// Satellite Imagery
+					// https://www.arcgis.com/home/item.html?id=10df2279f9684e4a9f6a7f08febac2a9
+					const imagery = L.tileLayer(
+						'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+						{
+							attribution: 'Tiles &copy; <a href="https://esri.maps.arcgis.com/home/index.html">Esri</a> &mdash; Sources: Esri, Maxar, Earthstar Geographics, and the GIS User Community'
+						}
 					).addTo(map);
+
+					
+					
 
 					var fieldSitesGroup = L.featureGroup().addTo(map)
 					var plateBoundariesGroup = L.featureGroup().addTo(map)
 
-					// // Add in plate boundaries GeoJSON
-					// function shiftGeometryCoords(coords, shift) {
-					// 	if (typeof coords[0] === "number") {
-					// 		return [coords[0] + shift, coords[1]];
-					// 	}
-					// 	return coords.map(c => shiftGeometryCoords(c, shift));
-					// }
-					// function makeWrappedGeoJSON(data) {
-					// 	const shifts = [0, 360, -360]; //base,east,west copies
-					// 	let features = [];
-					// 	data.features.forEach(feature => {
-					// 		shifts.forEach(shift => {
-					// 			const newFeature = JSON.parse(JSON.stringify(feature));
-
-					// 			newFeature.geometry.coordinates = shiftGeometryCoords(feature.geometry.coordinates, shift);
-					// 			features.push(newFeature)
-					// 		});
-					// 	});
-
-					// 	return {
-					// 		type: "FeatureCollection",
-					// 		features: features
-					// 	};
-					// }
-					// fetch('files/GeoJSON/PB2002_boundaries.json')
-					// 	.then(response => response.json())
-					// 	.then(data => {
-					// 		const wrappedData = makeWrappedGeoJSON(data);
-					// 		const geoJsonLayer = L.geoJSON(wrappedData, {
-					// 		// var geoJsonLayer = L.geoJSON(data, {
-					// 			style: {
-					// 				color: '#ff6600',
-					// 				weight: 2,
-					// 				opacity: 0.8
-					// 			}
-					// 		});
-					// 		plateBoundariesGroup.addLayer(geoJsonLayer);
-					// 	})
-					// 	// .catch(error => console.error('Error loading plate boundaries:', error));
-
-					// L.control.scale().addTo(map);
 
 					fetch('files/GeoJSON/PB2002_boundaries_wrapped.json')
 						.then(response => response.json())
@@ -583,32 +578,64 @@
 					const sites = [
 				
 						{
-							name: "Bangladesh–Myanmar",
-							lat: 22.5,
-							lon: 92.0,
-							desc: "BIMA seismic deployment investigating Indo-Burman subduction."
+							name: "Indo-Burman Subduction Zone",
+							lat: 24.0,
+							lon: 90.5,
+							desc: "The <b>BIMA (Bangladesh-India-Myanmar Array)</b> seismic deployment (2018-2022) investigated the subduction of a downgoing plate covered by an extremely thick sediment blanket. Stations covered the accretionary wedge in <b>Bangladesh</b>.",
+							FDSN: "https://www.fdsn.org/networks/detail/XR_2018/",
+							network:"XR",
+							more:"https://www.fdsn.org/networks/detail/XR_2018/",
 						},
 				
 						{
-							name: "Lake Malawi",
-							lat: -11.8,
+							name: "Lake Malawi & the East African Rift",
+							lat: -10.3,
 							lon: 34.4,
-							desc: "Lake-bottom seismology and microseism generation."
+							desc: "The <b>SEGMeNT (Study of Extension and maGmatism in Malawi aNd Tanzania)</b>* seismic deployment (2013-2016) targeted active continental rifting in the southern East African Rift—a place that didn't seem to a clear zone of weakness enabling rifting. Breaking up the crust is hard work! *We scientists love our acronyms!<br/><br/>The array was deployed both on land and across the bottom of <b>Lake Malawi</b>, so instruments ALSO captured seismic energy from wind-generated waves across the lake in great detail. allowing us to study how energy transfers between atmosphere, hydrosphere, and the solid Earth.",
+							FDSN: "https://www.fdsn.org/networks/detail/YQ_2013/",
+							network:"YQ",
+							more:"/SEGMENT-lake-noise.html",
 						},
 				
 						{
 							name: "Northern Andes",
 							lat: 5.5,
-							lon: -75.0,
-							desc: "Seismic anisotropy and mantle flow around the Caldas Tear."
+							lon: -74.7,
+							desc: "The <b>MUSICA (Modeling, Uplift, Seismology, and Igneous geochemistry in the Colombian Andes)</b> project (2022-2025) deployed seismometers across a portion of the Andes where the mountains splay into three belts. A clear offset in slab-hosted earthquakes (the <b>Caldas Tear</b>) outlines a dramatic change in subducting slab geometry with normal Nazca subduction to the south and <b>flat subduction</b> (of unclear plate origin) to the north. How might this complex slab geometry impact subduction processes and dynamics between the mantle and overriding plate?",
+							FDSN: "https://www.fdsn.org/networks/detail/3C_2022/",
+							network:"3C",
+							more:"https://www.fdsn.org/networks/detail/3C_2022/",
 						},
 				
 						{
-							name: "Great Lakes",
+							name: "The Great Lakes of North America",
 							lat: 45.0,
 							lon: -84.0,
-							desc: "Environmental seismology and ice-cover monitoring."
-						}
+							desc: "Wind-generated ocean waves transmit energy into the ground as 'microseisms', strong ambient noise signals detected across Earth. The <b>Great Lakes</b> act as a natural laboratory for investigating the source properties of microseisms at smaller scale. With <b>environmental seismology</b>, we unlock the potential in archived seismic recordings for applications beyond earthquake science, such as <b>ice-cover monitoring</b>.",
+							FDSN: "https://www.fdsn.org/networks/detail/US/",
+							network:"US",
+							more:"https://www.fdsn.org/networks/detail/US/",
+						},
+
+						{
+							name: "Rio Grande Rift and Jemez Volcanics",
+							lat: 35.9,
+							lon: -106.5,
+							desc: "Chris took his first steps into field work and teaching near Santa Fe, NM as part of the <b>SAGE (Summer of Applied Geophysical Experience) Program</b>. Roaming from the Valles Caldera to Bandelier National Monument, he learned and applied a suite of geophysical methods to near-surface problems.<br/><br/>Rio Grande Rift extension manifests here in the beautiful Sandia fault-block mountains. Nearby, Jemez Mountain volcanics hint at an ancient subduction zone.",
+							FDSN: "https://fdsn.org/networks/detail/4C_2016/",
+							network:"4C",
+							more:"https://www.summerofappliedgeophysicalexperience.org/",
+						},
+
+						{
+							name: "Queen Charlotte Fault",
+							lat: 55.6,
+							lon: -135.0,
+							desc: "Aboard the RV <i>Marcus G. Langseth</i>, Chris assisted with the deployment of ocean-bottom seismometers as part of <b>TOQUES (The Queen Charlotte Fault Offshore Seismic Experiment)</b>. This study (2020-2022) aimed to better understand the collisional extent of the offshore Queen Charlotte Fault and its implications for seismic hazard across the Haida Gwaii region.",
+							FDSN: "https://www.fdsn.org/networks/detail/YI_2020/",
+							network:"YI",
+							more:"https://www.fdsn.org/networks/detail/YI_2020/",
+						},
 				
 					];
 				
@@ -616,19 +643,29 @@
 				
 						L.marker([site.lat, site.lon])
 							.bindPopup(
-								`<h3>${site.name}</h3>
-								 <p>${site.desc}</p>`
+								`<h4>${site.name}</h4>
+								 <p>${site.desc}</p>
+								 <a href=${site.FDSN} target="_blank">Network ${site.network}</a>,
+								 <a href=${site.more} target="_blank">Learn More</a>`,
 							)
 							.addTo(fieldSitesGroup);
 				
 					});
 					
-					// const overlays = {
-					// 	"Field Sites": fieldSitesGroup,
-					// 	"Plate Boundaries": plateBoundariesGroup
-					// 	// "Plate Boundaries":data
-					// };
-					// L.control.layers(null,overlays).addTo(map);
+					const baseMaps = {
+						"Satellite Imagery": imagery,
+						"Geographic": osm,
+						// "Geographic": geo,
+						// "Physical": physical
+						// "OpenStreetMap": osm,
+					};
+
+					const overlays = {
+						"Field Sites": fieldSitesGroup,
+						"Plate Boundaries": plateBoundariesGroup
+						// "Plate Boundaries":data
+					};
+					L.control.layers(baseMaps,overlays).addTo(map);
 				});
 				
 				</script>
